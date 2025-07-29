@@ -8,6 +8,8 @@ import {
   Output,
 } from '@angular/core';
 
+import { type User } from './user.model';
+
 @Component({
   selector: 'app-user',
   imports: [],
@@ -15,20 +17,10 @@ import {
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  @Input({ required: true }) user!: {
-    id: string;
-    avatar: string;
-    name: string;
-  };
+  @Input({ required: true }) user!: User;
   @Output() select = new EventEmitter<string>();
-  //select = output<string>();
+  @Input({required: true}) selected!: boolean;
 
-  //avatar = input.required<string>();
-  //name = input.required<string>();
-
-  //  imagePath = computed(()=>{
-  //    return "assets/users/" + this.avatar;
-  //  });
 
   get imagePath() {
     return 'assets/users/' + this.user.avatar;
