@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { NewTaskData } from './new-task/new-task.model';
+import { Task } from './task/task.model';
 
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
-  private tasks = [
+  private tasks: Task[] = [
     {
       id: 't1',
       userId: 'u1',
@@ -39,22 +40,23 @@ export class TasksService {
   }
 
   getUserTasks(userId: string) {
-    return this.tasks.filter((task) => task.userId === userId);
+    return this.tasks.filter((task: Task) => task.userId === userId);
   }
 
   addTask(taskData: NewTaskData, userId: string) {
-    this.tasks.unshift({
+    const newTask: Task = {
       id: new Date().getTime().toString(),
       userId: userId,
       title: taskData.title,
       summary: taskData.summary,
       dueDate: taskData.date,
-    });
+    }
+    this.tasks.unshift(newTask);
     this.saveTasks();
   }
 
   removeTask(id: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+    this.tasks = this.tasks.filter((task: Task) => task.id !== id);
     this.saveTasks();
   }
 
